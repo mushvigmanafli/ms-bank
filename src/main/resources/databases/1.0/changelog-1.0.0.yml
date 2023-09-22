@@ -1,0 +1,50 @@
+databaseChangeLog:
+  - changeSet:
+      id: create customer table
+      author: Mushvig Manafli
+      changes:
+        - createTable:
+            tableName: customer
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    unique: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: text
+              - column:
+                  name: surname
+                  type: text
+              - column:
+                  name: birth_date
+                  type: date
+                  constraints:
+                    nullable: true
+              - column:
+                  name: gsm_number
+                  type: varchar(16)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: balance
+                  type: numeric
+                  defaultValue: 0
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp
+                  defaultValue: now()
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_updated_at
+                  type: timestamp
+                  defaultValue: now()
+                  constraints:
+                    nullable: false

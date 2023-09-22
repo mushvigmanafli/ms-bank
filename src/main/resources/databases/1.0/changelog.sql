@@ -1,0 +1,1 @@
+insert into customer (name, surname, birth_date, gsm_number, balance) values ('Mushvig', 'Manafli', '1996-01-12', '20002', 100);

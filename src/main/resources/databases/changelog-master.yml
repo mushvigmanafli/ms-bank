@@ -1,0 +1,5 @@
+
+databaseChangeLog:
+  - includeAll:
+      path: databases/1.0
+
