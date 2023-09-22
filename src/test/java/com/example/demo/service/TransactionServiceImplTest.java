@@ -10,6 +10,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -77,5 +80,22 @@ public class TransactionServiceImplTest {
         assertNotNull(result);
         assertEquals(transactionId, result.getId());
         assertEquals(transactionType, result.getTransactionType());
+    }
+
+    @Test
+    void testGetTransactions() {
+        // Mocking the expected transaction list
+        List<TransactionEntity> expectedTransactions = new ArrayList<>();
+        expectedTransactions.add(new TransactionEntity());
+        expectedTransactions.add(new TransactionEntity());
+
+        // Mocking the transaction repository behavior
+        when(transactionRepository.findByCustomerId(1L)).thenReturn(expectedTransactions);
+
+        // Calling the service method
+        List<TransactionEntity> result = transactionService.getTransactions(1L);
+
+        // Asserting the result
+        assertEquals(expectedTransactions, result);
     }
 }

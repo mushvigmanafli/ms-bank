@@ -7,6 +7,7 @@ import com.example.demo.service.TransactionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 @Service
@@ -39,5 +40,10 @@ public class TransactionServiceImpl implements TransactionService {
 
         logger.info("getTransaction end. customerId: " + id);
         return transactionEntity;
+    }
+
+    @Override
+    public List<TransactionEntity> getTransactions(Long customerId) {
+       return transactionRepository.findByCustomerId(customerId);
     }
 }

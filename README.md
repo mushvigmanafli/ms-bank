@@ -79,6 +79,75 @@ Returned data example(Status Code: 201):
 Note: I'am creating a user via liquibase
 </details>
 
+- #### CUSTOMER LIST :
+
+<details>
+    <summary>/v1/bank/customer - HTTP GET:</summary>
+
+Endpoint:  /v1/bank/customer
+
+## Parameters
+
+
+Returned data example(Status Code: 200):
+
+```yaml
+[
+   {
+      "id": 1,
+      "name": "Mushvig",
+      "surname": "Manafli",
+      "gsmNumber": "20002",
+      "balance": 51.33,
+      "birthDate": "1996-01-12",
+      "createdAt": "2023-09-22T14:58:53.778013",
+      "lastUpdatedAt": "2023-09-22T15:21:41.179571"
+   }
+]
+```
+
+</details>
+
+- #### TRANSACTION LIST BY customerIds:
+
+<details>
+    <summary>/v1/bank/transaction/{customerId} - HTTP GET:</summary>
+
+Endpoint:  /v1/bank/transaction/{customerId}
+
+## Parameters
+
+
+Returned data example(Status Code: 200):
+
+```yaml
+[
+   {
+      "id": 3,
+      "customerId": 1,
+      "transactionType": "PURCHASE",
+      "amount": 1.0,
+      "createdAt": "2023-09-22T15:12:00.586052"
+   },
+   {
+      "id": 4,
+      "customerId": 1,
+      "transactionType": "TOP_UP",
+      "amount": 1.0,
+      "createdAt": "2023-09-22T15:12:07.983494"
+   },
+   {
+      "id": 5,
+      "customerId": 1,
+      "transactionType": "REFUND",
+      "amount": 0.33,
+      "createdAt": "2023-09-22T15:14:48.333284"
+   }
+]
+```
+
+</details>
+
 - #### TOP-UP money:
 
 <details>

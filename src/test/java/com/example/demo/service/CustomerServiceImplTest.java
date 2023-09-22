@@ -12,6 +12,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -76,6 +78,23 @@ public class CustomerServiceImplTest {
         assertNotNull(result);
         assertEquals(1L, result.getId());
         assertEquals("John Doe", result.getName());
+    }
+
+    @Test
+    void testGetCustomers() {
+        // Mocking the expected customer list
+        List<CustomerEntity> expectedCustomers = new ArrayList<>();
+        expectedCustomers.add(new CustomerEntity());
+        expectedCustomers.add(new CustomerEntity());
+
+        // Mocking the customer repository behavior
+        when(customerRepository.findAll()).thenReturn(expectedCustomers);
+
+        // Calling the service method
+        List<CustomerEntity> result = customerService.getCustomers();
+
+        // Asserting the result
+        assertEquals(expectedCustomers, result);
     }
 }
 

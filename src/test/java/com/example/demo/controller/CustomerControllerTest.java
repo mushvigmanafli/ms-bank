@@ -11,6 +11,9 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -52,5 +55,23 @@ public class CustomerControllerTest {
         CustomerEntity responseCustomer = responseEntity.getBody();
         assertEquals(customerEntity.getId(), responseCustomer.getId());
         assertEquals(customerEntity.getName(), responseCustomer.getName());
+    }
+
+    @Test
+    void testGetCustomers() {
+        // Mocking the expected customer list
+        List<CustomerEntity> expectedCustomers = new ArrayList<>();
+        expectedCustomers.add(new CustomerEntity());
+        expectedCustomers.add(new CustomerEntity());
+
+        // Mocking the customer service behavior
+        when(customerService.getCustomers()).thenReturn(expectedCustomers);
+
+        // Calling the controller method
+        ResponseEntity<List<CustomerEntity>> response = customerController.getCustomers();
+
+        // Asserting the response
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(expectedCustomers, response.getBody());
     }
 }

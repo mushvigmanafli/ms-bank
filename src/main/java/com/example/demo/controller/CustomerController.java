@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("${ms.root.url}" + "/customer")
 public class CustomerController {
@@ -18,5 +20,10 @@ public class CustomerController {
     @PostMapping
     public ResponseEntity<CustomerEntity> createCustomer(@RequestBody CustomerRequestDTO customerRequestDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(customerService.createCustomer(customerRequestDTO));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CustomerEntity>> getCustomers() {
+        return ResponseEntity.status(HttpStatus.OK).body(customerService.getCustomers());
     }
 }

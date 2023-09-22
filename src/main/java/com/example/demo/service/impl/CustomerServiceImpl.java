@@ -11,6 +11,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 @Service
@@ -39,5 +40,10 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerEntity getCustomerById(Long customerId) {
         return customerRepository.findById(customerId)
                 .orElseThrow(() -> new RuntimeException("Customer not found"));
+    }
+
+    @Override
+    public List<CustomerEntity> getCustomers() {
+        return customerRepository.findAll();
     }
 }
