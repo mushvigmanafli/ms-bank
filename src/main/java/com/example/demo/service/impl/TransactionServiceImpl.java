@@ -35,7 +35,7 @@ public class TransactionServiceImpl implements TransactionService {
     public TransactionEntity getTransaction(Long id, TransactionType transactionType) {
         logger.info("getTransaction start. customerId: " + id);
 
-        // Create a transaction
+        // Get transaction
         var transactionEntity = transactionRepository.findByIdAndTransactionType(id, transactionType);
 
         logger.info("getTransaction end. customerId: " + id);

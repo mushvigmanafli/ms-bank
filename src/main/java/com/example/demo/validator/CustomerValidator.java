@@ -21,7 +21,7 @@ public class CustomerValidator {
         }
     }
 
-    public void validatePurchase(double currentBalance, double amount) {
+    public void validateAmount(double currentBalance, double amount) {
         if (currentBalance < amount) {
             throw new RuntimeException("Insufficient balance");
         }

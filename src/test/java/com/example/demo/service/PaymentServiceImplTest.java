@@ -91,7 +91,7 @@ public class PaymentServiceImplTest {
         when(customerService.getCustomerById(customerId)).thenReturn(customerEntity);
 
         // Mocking the customerValidator behavior
-        doNothing().when(customerValidator).validatePurchase(customerEntity.getBalance(), purchaseAmount);
+        doNothing().when(customerValidator).validateAmount(customerEntity.getBalance(), purchaseAmount);
 
         // Mocking the paymentServiceHelper behavior
         when(paymentServiceHelper.formatDecimal(purchaseAmount)).thenReturn(purchaseAmount);

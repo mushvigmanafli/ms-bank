@@ -11,6 +11,9 @@ public class PaymentServiceHelper {
 
     private static final DecimalFormat df = new DecimalFormat("0.00");
 
+    public double formatDecimal(double amount){
+        return Double.parseDouble(df.format(amount));
+    }
     public PaymentResponseDTO createPaymentResponse(Long transactionId, Long customerId, double amount,
                                                     double balance, LocalDateTime date){
         return PaymentResponseDTO.builder()
@@ -22,7 +25,5 @@ public class PaymentServiceHelper {
                 .build();
     }
 
-    public double formatDecimal(double amount){
-        return Double.parseDouble(df.format(amount));
-    }
+
 }

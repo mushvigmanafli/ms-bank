@@ -40,7 +40,8 @@ public class PaymentServiceImpl implements PaymentService {
         customer.setBalance(newBalance);
 
         // Create a top-up transaction
-        var transaction= transactionService.createTransaction(customerId, TransactionType.TOP_UP, amount);
+        var transaction= transactionService.createTransaction(customerId, TransactionType.TOP_UP,
+                amount);
 
         customerRepository.save(customer);
 
@@ -59,12 +60,13 @@ public class PaymentServiceImpl implements PaymentService {
         CustomerEntity customer = customerService.getCustomerById(customerId);
 
         // Validate the purchase
-        customerValidator.validatePurchase(customer.getBalance(), amount);
+        customerValidator.validateAmount(customer.getBalance(), amount);
 
         customer.setBalance(customer.getBalance() - amount);
 
         // Create a purchase transaction
-        var transaction = transactionService.createTransaction(customerId, TransactionType.PURCHASE, amount);
+        var transaction = transactionService.createTransaction(customerId, TransactionType.PURCHASE,
+                amount);
 
         // Update customer balance
         customerRepository.save(customer);
@@ -79,17 +81,25 @@ public class PaymentServiceImpl implements PaymentService {
     public PaymentResponseDTO makeRefund(Long transactionId) {
         logger.info("makeRefund start. transactionId: " + transactionId);
 
-        var transactionEntity = transactionService.getTransaction(transactionId, TransactionType.PURCHASE);
+        var transactionEntity = transactionService.getTransaction(transactionId,
+                TransactionType.PURCHASE);
 
         // Calculate refund amount
         var refundAmount = paymentServiceHelper.formatDecimal(
                 transactionEntity.getAmount() / REFUND_PERCENTAGE);
 
         // Create a refund transaction
+
+        var customer  = customerService.getCustomerById(transactionEntity.getCustomerId());
+
+        // Validate the refund
+        customerValidator.validateAmount(customer.getBalance(), refundAmount);
+
+        customer.setBalance(customer.getBalance() + refundAmount);
+
+        //save transaction
         var transaction = transactionService.createTransaction(transactionEntity.getCustomerId(),
                 TransactionType.REFUND, refundAmount);
-        var customer  = customerService.getCustomerById(transactionEntity.getCustomerId());
-        customer.setBalance(customer.getBalance() + refundAmount);
 
         // Update customer balance
         customerRepository.save(customer);
